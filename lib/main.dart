@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget { //STATELESSWIDGET MAKE THE APP ITSELF A WI
       ),
     );
   }
-}
+}  //end
 
 
 class list1 extends StatefulWidget {
