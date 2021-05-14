@@ -14,17 +14,17 @@ class MyApp extends StatelessWidget {  //STATELESSWIDGET MAKE THE APP ITSELF A W
   Widget build(BuildContext context) {    //Constructor build, takes buildcontext as argument
    // final wordPair = WordPair.random(); //New final object, cant change the value, Wordpair gets random words from english_words
     return MaterialApp(      //MaterialApp configures the top level navigator
-      title: 'Texto de prueba', // tittle of navigator
-      home: Scaffold(        //Class that develop the basic material design visual layout structure
-        appBar: AppBar(          //Toolbar
-          title: Text('My first App'), //Texto en titulo de navbar
-          backgroundColor: Color(0xFF455A64),
-          centerTitle: true, //titulo centrado?
-        ),
-        body: Center(         //alineation of body
-          child: RandomWords(), //call of class Randomwords, that generate random words in english
-        ),
-      ),
+      title: 'Startup Name Generator', // tittle of navigator
+      home: RandomWords(),        //Class that develop the basic material design visual layout structure
+        //appBar: AppBar(          //Toolbar
+          //title: Text('My first App'), //Texto en titulo de navbar
+          //backgroundColor: Color(0xFF455A64),
+          //centerTitle: true, //titulo centrado?
+        //),
+        //body: Center(         //alineation of body
+          //child: RandomWords(), //call of class Randomwords, that generate random words in english
+        //),
+      //),
     );
   }
 }
@@ -40,22 +40,35 @@ class _RandomWordsState extends State<RandomWords> {//second class of stateful w
  final _biggerFont = TextStyle(fontSize: 18.0); //Make the font bigger.
 
     Widget build(BuildContext context) { //constructor to show the random word generated
-      final wordPair = WordPair.random();
-      return Text(wordPair.asPascalCase);
+       return Scaffold(
+    appBar: AppBar(
+      title: Text('Startup Name Generator'),
+    ),
+    body: _buildSuggestions(),
+  );
     }
 
-    Widget _buildSuggestions() {
+    Widget _buildSuggestions() { //Widget to construct the list of random words
   return ListView.builder(
-      padding: EdgeInsets.all(16.0),
-      itemBuilder: /*1*/ (context, i) {
-        if (i.isOdd) return Divider(); /*2*/
+      padding: EdgeInsets.all(16.0),  //Setting padding
+      itemBuilder: /*1*/ (context, i) {  //*1* itembuioder is called once per sugested word and places each word into a ListView
+            //Ffor even rows it adds a listtitle, for odd rows the funtion Divider add a visual separation.
+        if (i.isOdd) return Divider(); //*2* Adds a one pixel heigth divider for each row in ListView
 
-        final index = i ~/ 2; /*3*/
+        final index = i ~/ 2; //*3* 
         if (index >= _suggestions.length) {
-          _suggestions.addAll(generateWordPairs().take(10)); /*4*/
+          _suggestions.addAll(generateWordPairs().take(10)); //*4* if you reach the limit of generated word, it generate 10 more and add them to the list
         }
-        return _buildRow(_suggestions[index]);
+        return _buildRow(_suggestions[index]); 
       });
+}
+Widget _buildRow(WordPair pair) {
+  return ListTile(
+    title: Text(
+      pair.asPascalCase,
+      style: _biggerFont,
+    ),
+  );
 }
 
 }
