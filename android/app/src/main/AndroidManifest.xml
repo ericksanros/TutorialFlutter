@@ -2,7 +2,7 @@
     package="com.example.tutorial_flutter">
    <application
         android:label="tutorial_flutter"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/newicon.png">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
