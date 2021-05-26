@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
-import 'package:flutter/rendering.dart'; //INCLUDE ENGLISH_WORDS PACKAGE FROM PUBSPEC.YAML, TO GENERATE WORDS
+import 'package:english_words/english_words.dart'; //INCLUDE ENGLISH_WORDS PACKAGE FROM PUBSPEC.YAML, TO GENERATE WORDS
+import 'package:flutter/rendering.dart'; 
 
 void main() => runApp(
     MyApp()); //WE USE THE ARROW SYMBOL FOR ONE-LINE FUNTIONS OR METHOD,void does not return,
@@ -38,6 +38,7 @@ class _RandomWordsState extends State<RandomWords> {//second class of stateful w
  @override
  final _suggestions = <WordPair>[]; //to save the words generated 
  final _biggerFont = TextStyle(fontSize: 18.0); //Make the font bigger.
+ final _saved = <WordPair>{}; //Saves the selected words by the user, we use a _saved instead of _list because if its well ,implemented can prevent repeated
 
     Widget build(BuildContext context) { //constructor to show the random word generated
        return Scaffold(
@@ -63,12 +64,18 @@ class _RandomWordsState extends State<RandomWords> {//second class of stateful w
       });
 }
 Widget _buildRow(WordPair pair) {
+  final alreadySaved = _saved.contains(pair); //Verification for saved word to know if its alreadey saved
   return ListTile(
     title: Text(
       pair.asPascalCase,
       style: _biggerFont,
     ),
+    trailing: Icon( //Adds icon next to the tittle of each row
+    alreadySaved ? Icons.favorite : Icons.favorite_border, //define the icon for each row
+    color: alreadySaved ? Colors.red : null, //Colors the icon when saved or marked as fav
+    ),
   );
+
 }
 
 }
