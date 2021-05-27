@@ -72,8 +72,17 @@ Widget _buildRow(WordPair pair) {
     ),
     trailing: Icon( //Adds icon next to the tittle of each row
     alreadySaved ? Icons.favorite : Icons.favorite_border, //define the icon for each row
-    color: alreadySaved ? Colors.red : null, //Colors the icon when saved or marked as fav
+    color: alreadySaved ? Colors.red : null, //Colors the icon when saved or marked as fav.
     ),
+    onTap: (){ //Set state of icon when tapped
+      setState(() { //Notify the framework that the internal state of this object has changed.
+        if(alreadySaved){  
+          _saved.remove(pair);
+          } else {
+          _saved.add(pair); 
+          }
+      });
+    } //onTap
   );
 
 }
